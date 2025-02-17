@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TutorialInfo.Scripts.Attacks;
+using TutorialInfo.Scripts.Visitor;
 using UnityEngine;
 
 namespace TutorialInfo.Scripts.Monsters
@@ -19,6 +20,8 @@ namespace TutorialInfo.Scripts.Monsters
 
         public abstract void takeDamage(int damage);
 
-        public abstract void addAttack(Attack attack);   
+        public abstract void addAttack(Attack attack);
+
+        public abstract bool isBurned();
     }
 }

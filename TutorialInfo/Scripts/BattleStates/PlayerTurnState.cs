@@ -1,5 +1,6 @@
 using TutorialInfo.Scripts.Attacks;
 using TutorialInfo.Scripts.Monsters;
+using TutorialInfo.Scripts.Visitor;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace TutorialInfo.Scripts.BattleStates
 
         public void OnEnter()
         {
+            
             foreach (Monster monster in BattleSystem.getInstance().allies)
             {
                 if (monster.getCurrentHP() <= 0)

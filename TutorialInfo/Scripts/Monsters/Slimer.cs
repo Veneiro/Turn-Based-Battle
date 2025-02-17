@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using TutorialInfo.Scripts.Attacks;
+using TutorialInfo.Scripts.Visitor;
 
 namespace TutorialInfo.Scripts.Monsters
 {
     public class Slimer : Monster
     {
-        private string name = "Slimer";
+        private new string name = "Slimer";
         public int level;
     
         private int maxHP;
         private int currentHP;
 
-        public bool isProtected = false;
+        private bool burned = false;
     
         public List<Attack> attacks = new List<Attack>();
 
@@ -54,6 +55,11 @@ namespace TutorialInfo.Scripts.Monsters
 
         public override void addAttack(Attack attack){
             attacks.Add(attack);
+        }
+
+        public override bool isBurned()
+        {
+            return burned;
         }
     }
 }

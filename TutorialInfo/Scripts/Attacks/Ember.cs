@@ -1,47 +1,45 @@
-using System.Linq;
 using TutorialInfo.Scripts.Effects;
-using TutorialInfo.Scripts.Monsters;
 using UnityEngine;
 using Random = System.Random;
 
 namespace TutorialInfo.Scripts.Attacks
 {
-    public class Tackle : Attack
+    public class Ember : Attack
     {
-        public static readonly Effect[] effects = new Effect[]
+        public static readonly Effect[] Effects = new Effect[]
         {
             new EffectDealDamage(getDamage())
         };
         public void use()
         {
-            foreach (Effect effect in effects)
+            foreach (Effect effect in Effects)
             {
                 effect.Execute();
             }
         }
-
+        
         public static int getDamage()
         {
             Random prob = new Random();
             if(prob.Next(100) > 80){
                 Debug.Log("Critical Hit!");
-                BattleSystem.getInstance().dialogueText.text = "Used Tackle, CRITICAL HIT!";
-                return 20;
+                return 25;
+                //BattleSystem.getInstance().dialogueText.text = "Used Tackle, CRITICAL HIT!";
             }
             else if(prob.Next(100) > 95){
                 Debug.Log("Attack Missed!");
-                BattleSystem.getInstance().dialogueText.text = "Used Tackle, MISSED!";
                 return 0;
+                //BattleSystem.getInstance().dialogueText.text = "Used Tackle, MISSED!";
             } else
             {
-                BattleSystem.getInstance().dialogueText.text = "Used Tackle";
-                return 10;
+                return 15;
+                //BattleSystem.getInstance().dialogueText.text = "Used Tackle";
             }
         }
 
         public string getName()
         {
-            return "Tackle";
+            return "Ember";
         }
     }
 }

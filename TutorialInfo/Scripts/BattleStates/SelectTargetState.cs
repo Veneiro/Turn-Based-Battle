@@ -6,7 +6,6 @@ namespace TutorialInfo.Scripts.BattleStates
 {
     public class SelectTargetState : BattleState
     {
-        private BattleState playerTurn;
         private Attack attack;
         public SelectTargetState(Attack a)
         {
@@ -26,6 +25,7 @@ namespace TutorialInfo.Scripts.BattleStates
                             Debug.Log("Target is: " + i1);
                             BattleSystem.getInstance().setTarget(BattleSystem.getInstance().enemies[i1]);
                             attack.use();
+                            BattleSystem.getInstance().dialogueText.text = "Used " + attack.getName();
                             BattleSystem.getInstance().changeState(new PlayerTurnState());
                         });
                 }
