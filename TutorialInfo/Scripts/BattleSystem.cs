@@ -33,6 +33,8 @@ public class BattleSystem : MonoBehaviour
     private bool won = false;
     private bool lose = false;
 
+    public BattleEffectsManager battleEffectManager;
+
     public void incAttackerOnTurn()
     {
         monsterAttacking++;

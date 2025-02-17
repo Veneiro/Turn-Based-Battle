@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TutorialInfo.Scripts.Attacks;
+using TutorialInfo.Scripts.Effects.Passive;
 using TutorialInfo.Scripts.Visitor;
 
 namespace TutorialInfo.Scripts.Monsters
@@ -13,6 +14,12 @@ namespace TutorialInfo.Scripts.Monsters
         private int currentHP;
 
         private bool burned = false;
+        
+        private int passiveDuration;
+
+        public bool buffDef = false;
+        
+        private List<PassiveEffect> _passiveEffects = new List<PassiveEffect>();
     
         public List<Attack> attacks = new List<Attack>();
 
@@ -57,9 +64,14 @@ namespace TutorialInfo.Scripts.Monsters
             attacks.Add(attack);
         }
 
-        public override bool isBurned()
+        public override List<PassiveEffect> GetPassiveEffects()
         {
-            return burned;
+            return _passiveEffects;
+        }
+
+        public override void AddPassiveEffect(PassiveEffect passiveEffect)
+        {
+            _passiveEffects.Add(passiveEffect);
         }
     }
 }

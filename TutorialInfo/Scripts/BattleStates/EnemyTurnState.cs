@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Linq;
+using TutorialInfo.Scripts.Effects;
+using TutorialInfo.Scripts.Effects.Passive;
 using TutorialInfo.Scripts.Monsters;
+using TutorialInfo.Scripts.Visitor;
 using UnityEngine;
 using Random = System.Random;
 
@@ -12,6 +15,7 @@ namespace TutorialInfo.Scripts.BattleStates
         {
             foreach (Monster monster in BattleSystem.getInstance().enemies)
             {
+                OnTurnStartVisitor visitor = new OnTurnStartVisitor(monster.GetPassiveEffects());
                 if (monster.getCurrentHP() <= 0)
                 {
                     BattleSystem.getInstance().enemiesStatus.Remove(monster);
@@ -53,7 +57,7 @@ namespace TutorialInfo.Scripts.BattleStates
                                                                BattleSystem.getInstance().enemies[i].GetAttacks()[0].getName();
                 yield return new WaitForSeconds(1);
             }
-            BattleSystem.getInstance().changeState(new PlayerTurnState());
+            BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EndTurnCommand(new PlayerTurnState()));
         }
     }
 }

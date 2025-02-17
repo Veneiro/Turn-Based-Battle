@@ -1,5 +1,6 @@
 using System.Linq;
 using TutorialInfo.Scripts.Effects;
+using TutorialInfo.Scripts.Effects.Passive;
 using TutorialInfo.Scripts.Monsters;
 using UnityEngine;
 using Random = System.Random;
@@ -8,34 +9,29 @@ namespace TutorialInfo.Scripts.Attacks
 {
     public class Tackle : Attack
     {
-        public static readonly Effect[] effects = new Effect[]
+        private int baseDamage;
+        public Tackle(int baseDamage)
         {
-            new EffectDealDamage(getDamage())
-        };
+            this.baseDamage = baseDamage;
+        }
         public void use()
         {
-            foreach (Effect effect in effects)
-            {
-                effect.Execute();
-            }
+            getDamage();
         }
 
-        public static int getDamage()
+        private void getDamage()
         {
             Random prob = new Random();
             if(prob.Next(100) > 80){
                 Debug.Log("Critical Hit!");
-                BattleSystem.getInstance().dialogueText.text = "Used Tackle, CRITICAL HIT!";
-                return 20;
+                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectDealCritictDamage(20, getName()));
             }
             else if(prob.Next(100) > 95){
                 Debug.Log("Attack Missed!");
-                BattleSystem.getInstance().dialogueText.text = "Used Tackle, MISSED!";
-                return 0;
+                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectMissAttack(getName()));
             } else
             {
-                BattleSystem.getInstance().dialogueText.text = "Used Tackle";
-                return 10;
+                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectDealDamage(10, getName()));
             }
         }
 

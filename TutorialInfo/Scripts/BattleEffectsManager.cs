@@ -7,7 +7,7 @@ namespace TutorialInfo.Scripts
 {
     public class BattleEffectsManager : MonoBehaviour
     {
-        private List<Effect> _effects = new List<Effect>();
+        private Queue<IGameCommand> _effects = new Queue<IGameCommand>();
         private int _effectIndex;
 
         public void Awake()
@@ -17,21 +17,21 @@ namespace TutorialInfo.Scripts
         
         private IEnumerator BattleEffectLoop()
         {
-            if (_effects.Count > _effectIndex)
+            while (this != null)
             {
-                _effectIndex++;
-                _effects[_effectIndex].Execute();
-                yield return new WaitForSeconds(_effects[_effectIndex].getExecutionTime());
-            }
-            else
-            {
-                yield return new WaitForEndOfFrame();
+                if (_effects.Count > 0)
+                {
+                    IGameCommand e = _effects.Dequeue();
+                    e.Execute();
+                    yield return new WaitForSeconds(e.getExecutionTime());
+                }
+                yield return null;
             }
         }
 
-        public void AddEffectToList(Effect effect)
+        public void AddEffectToList(IGameCommand effect)
         {
-            _effects.Add(effect);
+            _effects.Enqueue(effect);
         }
     }
 }

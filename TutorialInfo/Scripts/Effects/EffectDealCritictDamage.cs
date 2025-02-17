@@ -1,26 +1,24 @@
 namespace TutorialInfo.Scripts.Effects
 {
-    public class EffectDealDamage : Effect
+    public class EffectDealCritictDamage : Effect
     {
-        private readonly int damage;
-        public int ExecutionTime = 2;
         private readonly string atkName;
+        private readonly int damage;
 
-        public EffectDealDamage(int damage, string atkName)
+        public EffectDealCritictDamage(int damage, string atkName)
         {
             this.damage = damage;
             this.atkName = atkName;
         }
-        
         public void Execute()
         {
-            BattleSystem.getInstance().dialogueText.text = "Used " + atkName;
+            BattleSystem.getInstance().dialogueText.text = "Used " + atkName +", CRITICAL HIT!";
             BattleSystem.getInstance().attackTarget(damage);
         }
 
         public int getExecutionTime()
         {
-            return ExecutionTime;
+            return 2;
         }
     }
 }

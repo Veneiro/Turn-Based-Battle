@@ -1,4 +1,6 @@
 using TutorialInfo.Scripts.Attacks;
+using TutorialInfo.Scripts.Effects;
+using TutorialInfo.Scripts.Effects.Passive;
 using TutorialInfo.Scripts.Monsters;
 using TutorialInfo.Scripts.Visitor;
 using Unity.Burst.Intrinsics;
@@ -16,6 +18,7 @@ namespace TutorialInfo.Scripts.BattleStates
             
             foreach (Monster monster in BattleSystem.getInstance().allies)
             {
+                OnTurnStartVisitor visitor = new OnTurnStartVisitor(monster.GetPassiveEffects());
                 if (monster.getCurrentHP() <= 0)
                 {
                     BattleSystem.getInstance().alliesStatus.Remove(monster);
@@ -32,9 +35,10 @@ namespace TutorialInfo.Scripts.BattleStates
             }
             if (BattleSystem.getInstance().getCurrentMonsterAttacking() >= BattleSystem.getInstance().alliesStatus.Count)
             {
+                
                 Debug.Log("Cambio a enemigo");
                 BattleSystem.getInstance().resetMonsterAttacking();
-                BattleSystem.getInstance().changeState(new EnemyTurnState());
+                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EndTurnCommand(new EnemyTurnState()));
                 return;
             }
             int current = BattleSystem.getInstance().getCurrentMonsterAttacking();

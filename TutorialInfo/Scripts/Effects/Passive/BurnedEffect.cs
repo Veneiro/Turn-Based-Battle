@@ -1,30 +1,26 @@
 using TutorialInfo.Scripts.Monsters;
+using TutorialInfo.Scripts.Visitor;
 using UnityEngine;
 
 namespace TutorialInfo.Scripts.Effects.Passive
 {
     public class BurnedEffect : PassiveEffect
     {
-            private int duracion;
-            private int damagePerTurn;
+            private readonly Monster target;
 
-            public BurnedEffect(int duracion, int daño)
+            public BurnedEffect(Monster target)
             {
-                this.duracion = duracion;
-                this.damagePerTurn = daño;
+                this.target = target;
             }
 
-            public void ApplyEffect(Monster monster)
+            public void accept(AbstractVisitor visitor)
             {
-                monster.takeDamage(damagePerTurn);
-                duracion--;
-                BattleSystem.getInstance().dialogueText.text =
-                    $"{monster.getName()} sufre {damagePerTurn} de daño por quemadura. Duración restante: {duracion}";
+                visitor.visit(this);
             }
 
-            public bool IsExpired()
+            public Monster getTarget()
             {
-                return duracion <= 0;
+                return target;
             }
-        }
+    }
 }

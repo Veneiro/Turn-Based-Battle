@@ -1,3 +1,5 @@
+using TutorialInfo.Scripts.Monsters;
+
 namespace TutorialInfo.Scripts.Attacks
 {
     public class IronDefense : Attack

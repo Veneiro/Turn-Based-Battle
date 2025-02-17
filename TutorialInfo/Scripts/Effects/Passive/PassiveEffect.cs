@@ -1,10 +1,10 @@
 using TutorialInfo.Scripts.Monsters;
+using TutorialInfo.Scripts.Visitor;
 
 namespace TutorialInfo.Scripts.Effects.Passive
 {
     public interface PassiveEffect
     {
-        public void ApplyEffect(Monster monster);
-        public bool IsExpired();
+        public void accept(AbstractVisitor visitor);
     }
 }

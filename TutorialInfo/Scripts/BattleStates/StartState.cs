@@ -26,20 +26,20 @@ namespace TutorialInfo.Scripts.BattleStates
                     switch (i)
                     {
                         case 0:
-                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle(20));
                             break;
                         case 1:
-                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle(20));
                             attacks.Add(new Ember());
                             attacks.Add(new IronDefense());
                             break;
                         case 2:
-                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle(20));
                             attacks.Add(new Ember());
                             
                             break;
                         default:
-                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle(20));
                             break;
                     }
                     Monster unit = battleSystem.InitialiceMonster(monster, battleSystem.spawnPoints[i], attacks, Random.Range(5, 10));
@@ -55,7 +55,7 @@ namespace TutorialInfo.Scripts.BattleStates
                 foreach (BattleHUD hud in battleSystem.EnemyHUDs)
                 {
                     List<Attack> attacks = new List<Attack>();
-                    attacks.Add(new Tackle());
+                    attacks.Add(new Tackle(10));
                     Monster unit = battleSystem.InitialiceMonster(monster, battleSystem.spawnPoints[i], attacks, Random.Range(5, 10));
                     battleSystem.enemies.Add(unit);
                     battleSystem.enemiesStatus.Add(unit);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TutorialInfo.Scripts.Attacks;
+using TutorialInfo.Scripts.Effects.Passive;
 using TutorialInfo.Scripts.Visitor;
 using UnityEngine;
 
@@ -21,7 +22,9 @@ namespace TutorialInfo.Scripts.Monsters
         public abstract void takeDamage(int damage);
 
         public abstract void addAttack(Attack attack);
-
-        public abstract bool isBurned();
+        
+        public abstract List<PassiveEffect> GetPassiveEffects();
+        
+        public abstract void AddPassiveEffect(PassiveEffect passiveEffect);
     }
 }

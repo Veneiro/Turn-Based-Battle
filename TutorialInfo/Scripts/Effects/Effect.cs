@@ -1,8 +1,6 @@
 namespace TutorialInfo.Scripts.Effects
 {
-    public interface Effect
+    public interface Effect : IGameCommand
     {
-        public void Execute();
-        public int getExecutionTime();
     }
 }
