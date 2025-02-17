@@ -1,0 +1,75 @@
+using System.Collections.Generic;
+using TutorialInfo.Scripts.Attacks;
+using TutorialInfo.Scripts.Monsters;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+namespace TutorialInfo.Scripts.BattleStates
+{
+    public class StartState : BattleState
+    {
+        public void OnEnter()
+        {
+            
+        }
+
+        public void execute(BattleSystem battleSystem)
+        {
+            battleSystem.dialogueText.text = "Crazy Trainer challenges you to a battle!";
+
+            int i = 0;
+            foreach (GameObject monster in battleSystem.alliesGO)
+            {
+                foreach (BattleHUD hud in battleSystem.PlayerHUDs)
+                {
+                    List<Attack> attacks = new List<Attack>();
+                    switch (i)
+                    {
+                        case 0:
+                            attacks.Add(new Tackle());
+                            break;
+                        case 1:
+                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle());
+                            break;
+                        case 2:
+                            attacks.Add(new Tackle());
+                            attacks.Add(new Tackle());
+                            
+                            break;
+                        default:
+                            attacks.Add(new Tackle());
+                            break;
+                    }
+                    Monster unit = battleSystem.InitialiceMonster(monster, battleSystem.spawnPoints[i], attacks, 5);
+                    battleSystem.allies.Add(unit);
+                    battleSystem.alliesStatus.Add(unit);
+                    hud.setHUD(unit);
+                    hud.setActive(true);
+                    i++;
+                }
+            }
+            foreach (GameObject monster in battleSystem.enemiesGO)
+            {
+                foreach (BattleHUD hud in battleSystem.EnemyHUDs)
+                {
+                    List<Attack> attacks = new List<Attack>();
+                    attacks.Add(new Tackle());
+                    Monster unit = battleSystem.InitialiceMonster(monster, battleSystem.spawnPoints[i], attacks, 5);
+                    battleSystem.enemies.Add(unit);
+                    battleSystem.enemiesStatus.Add(unit);
+                    hud.setHUD(unit);
+                    hud.setActive(true);
+                    i++;
+                }
+            }
+            battleSystem.changeState(new PlayerTurnState());
+        }
+
+        public void OnExit()
+        {
+            
+        }
+    }
+}
