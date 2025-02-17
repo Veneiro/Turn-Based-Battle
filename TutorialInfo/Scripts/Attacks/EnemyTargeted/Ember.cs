@@ -8,12 +8,18 @@ namespace TutorialInfo.Scripts.Attacks
 {
     public class Ember : Attack
     {
+        private int baseDamage = 15;
         public void use()
         {
             Random prob = new Random();
             if (prob.Next(100) > 80)
             {
-                BattleSystem.getInstance().target.AddPassiveEffect(new BurnedEffect(BattleSystem.getInstance().target));   
+                if (BattleSystem.getInstance().target.IsBurned() == false)
+                {
+                    BattleSystem.getInstance().target.SetBurning();
+                    BattleSystem.getInstance().target
+                        .AddPassiveEffect(new BurnedEffect(BattleSystem.getInstance().target));
+                }
             }
             getDamage();
         }
@@ -24,7 +30,7 @@ namespace TutorialInfo.Scripts.Attacks
             if (prob.Next(100) > 80)
             {
                 Debug.Log("Critical Hit!");
-                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectDealCritictDamage(25, getName()));
+                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectDealCritictDamage((int)(baseDamage*1.7), getName()));
             }
             else if (prob.Next(100) > 95)
             {
@@ -33,13 +39,18 @@ namespace TutorialInfo.Scripts.Attacks
             }
             else
             {
-                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectDealDamage(15, getName()));
+                BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EffectDealDamage(baseDamage, getName()));
             }
         }
 
         public string getName()
         {
             return "Ember";
+        }
+
+        public bool needTarget()
+        {
+            return true;
         }
     }
 }

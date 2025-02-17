@@ -6,5 +6,6 @@ namespace TutorialInfo.Scripts.Attacks
     {
         public void use();
         public string getName();
+        public bool needTarget();
     }
 }

@@ -18,7 +18,7 @@ namespace TutorialInfo.Scripts.Monsters
         public abstract int getCurrentHP();
 
         public abstract List<Attack> GetAttacks();
-
+        
         public abstract void takeDamage(int damage);
 
         public abstract void addAttack(Attack attack);
@@ -26,5 +26,11 @@ namespace TutorialInfo.Scripts.Monsters
         public abstract List<PassiveEffect> GetPassiveEffects();
         
         public abstract void AddPassiveEffect(PassiveEffect passiveEffect);
+
+        public abstract void Heal(int amount);
+
+        public abstract bool IsBurned();
+
+        public abstract void SetBurning();
     }
 }

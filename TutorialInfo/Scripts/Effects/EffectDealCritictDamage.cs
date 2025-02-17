@@ -4,6 +4,7 @@ namespace TutorialInfo.Scripts.Effects
     {
         private readonly string atkName;
         private readonly int damage;
+        private int executionTime = 1;
 
         public EffectDealCritictDamage(int damage, string atkName)
         {
@@ -18,7 +19,7 @@ namespace TutorialInfo.Scripts.Effects
 
         public int getExecutionTime()
         {
-            return 2;
+            return executionTime;
         }
     }
 }

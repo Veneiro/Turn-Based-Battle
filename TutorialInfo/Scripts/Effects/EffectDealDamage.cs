@@ -3,7 +3,7 @@ namespace TutorialInfo.Scripts.Effects
     public class EffectDealDamage : Effect
     {
         private readonly int damage;
-        public int ExecutionTime = 2;
+        public int ExecutionTime = 1;
         private readonly string atkName;
 
         public EffectDealDamage(int damage, string atkName)

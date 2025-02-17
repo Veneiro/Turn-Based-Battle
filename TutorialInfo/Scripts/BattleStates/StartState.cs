@@ -31,7 +31,7 @@ namespace TutorialInfo.Scripts.BattleStates
                         case 1:
                             attacks.Add(new Tackle(20));
                             attacks.Add(new Ember());
-                            attacks.Add(new IronDefense());
+                            attacks.Add(new Rest());
                             break;
                         case 2:
                             attacks.Add(new Tackle(20));
@@ -56,6 +56,8 @@ namespace TutorialInfo.Scripts.BattleStates
                 {
                     List<Attack> attacks = new List<Attack>();
                     attacks.Add(new Tackle(10));
+                    attacks.Add(new Ember());
+                    attacks.Add(new Rest());
                     Monster unit = battleSystem.InitialiceMonster(monster, battleSystem.spawnPoints[i], attacks, Random.Range(5, 10));
                     battleSystem.enemies.Add(unit);
                     battleSystem.enemiesStatus.Add(unit);

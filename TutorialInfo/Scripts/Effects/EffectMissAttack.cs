@@ -3,6 +3,7 @@ namespace TutorialInfo.Scripts.Effects
     public class EffectMissAttack : Effect
     {
         private string atkName;
+        private int executionTime = 1;
         public EffectMissAttack(string atkName)
         {
          this.atkName = atkName;   
@@ -14,7 +15,7 @@ namespace TutorialInfo.Scripts.Effects
 
         public int getExecutionTime()
         {
-            return 2;
+            return executionTime;
         }
     }
 }

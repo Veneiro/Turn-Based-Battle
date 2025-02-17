@@ -15,10 +15,8 @@ namespace TutorialInfo.Scripts.BattleStates
 
         public void OnEnter()
         {
-            
             foreach (Monster monster in BattleSystem.getInstance().allies)
             {
-                OnTurnStartVisitor visitor = new OnTurnStartVisitor(monster.GetPassiveEffects());
                 if (monster.getCurrentHP() <= 0)
                 {
                     BattleSystem.getInstance().alliesStatus.Remove(monster);
@@ -31,7 +29,8 @@ namespace TutorialInfo.Scripts.BattleStates
                             BattleSystem.getInstance().PlayerHUDs[i].gameObject.SetActive(false);
                         }
                     }
-                }   
+                }
+                OnTurnStartVisitor visitor = new OnTurnStartVisitor(monster.GetPassiveEffects());
             }
             if (BattleSystem.getInstance().getCurrentMonsterAttacking() >= BattleSystem.getInstance().alliesStatus.Count)
             {

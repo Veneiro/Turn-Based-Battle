@@ -5,7 +5,6 @@ using TutorialInfo.Scripts.Effects.Passive;
 using TutorialInfo.Scripts.Monsters;
 using TutorialInfo.Scripts.Visitor;
 using UnityEngine;
-using Random = System.Random;
 
 namespace TutorialInfo.Scripts.BattleStates
 {
@@ -15,7 +14,6 @@ namespace TutorialInfo.Scripts.BattleStates
         {
             foreach (Monster monster in BattleSystem.getInstance().enemies)
             {
-                OnTurnStartVisitor visitor = new OnTurnStartVisitor(monster.GetPassiveEffects());
                 if (monster.getCurrentHP() <= 0)
                 {
                     BattleSystem.getInstance().enemiesStatus.Remove(monster);
@@ -28,9 +26,10 @@ namespace TutorialInfo.Scripts.BattleStates
                             BattleSystem.getInstance().EnemyHUDs[i].gameObject.SetActive(false);
                         }
                     }
-                }   
+                }
+                OnTurnStartVisitor visitor = new OnTurnStartVisitor(monster.GetPassiveEffects());
             }
-
+            HUDManager.getInstance().dialogBoxAttacks.gameObject.SetActive(false);
             BattleSystem.getInstance().StartCoroutine(EnemyAttackingCorroutine());
         }
 
@@ -41,6 +40,7 @@ namespace TutorialInfo.Scripts.BattleStates
 
         public void OnExit()
         {
+            HUDManager.getInstance().dialogBoxAttacks.gameObject.SetActive(true);
             BattleSystem.getInstance().dialogueText.text = "Your Turn! What do you want to do now?";
         }
 
@@ -48,14 +48,10 @@ namespace TutorialInfo.Scripts.BattleStates
         {
             for (int i = 0; i < BattleSystem.getInstance().enemiesStatus.Count; i++)
             {
-                int attackTo = new Random().Next(BattleSystem.getInstance().alliesStatus.Count);
+                int attackTo = Random.Range(0,BattleSystem.getInstance().alliesStatus.Count);
                 BattleSystem.getInstance().setTarget(BattleSystem.getInstance().alliesStatus[attackTo]);
-                BattleSystem.getInstance().enemies[i].GetAttacks()[0].use();
-                BattleSystem.getInstance().dialogueText.text = "Enemy " + 
-                                                               BattleSystem.getInstance().enemies[i].getName() + " " + 
-                                                               i + ": Uses " + 
-                                                               BattleSystem.getInstance().enemies[i].GetAttacks()[0].getName();
-                yield return new WaitForSeconds(1);
+                BattleSystem.getInstance().enemies[i].GetAttacks()[Random.Range(0,2)].use();
+                yield return null;
             }
             BattleSystem.getInstance().battleEffectManager.AddEffectToList(new EndTurnCommand(new PlayerTurnState()));
         }

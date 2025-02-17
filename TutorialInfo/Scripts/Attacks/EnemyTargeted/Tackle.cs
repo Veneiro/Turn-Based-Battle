@@ -39,5 +39,10 @@ namespace TutorialInfo.Scripts.Attacks
         {
             return "Tackle";
         }
+
+        public bool needTarget()
+        {
+            return true;
+        }
     }
 }

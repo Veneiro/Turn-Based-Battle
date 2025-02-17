@@ -39,6 +39,11 @@ public class BattleSystem : MonoBehaviour
     {
         monsterAttacking++;
     }
+    
+    public void decAttackerOnTurn()
+    {
+        monsterAttacking--;
+    }
 
     public int getCurrentMonsterAttacking()
     {

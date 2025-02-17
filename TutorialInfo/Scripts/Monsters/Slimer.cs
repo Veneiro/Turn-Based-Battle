@@ -73,5 +73,20 @@ namespace TutorialInfo.Scripts.Monsters
         {
             _passiveEffects.Add(passiveEffect);
         }
+
+        public override void Heal(int amount)
+        {
+            this.currentHP += amount;
+        }
+
+        public override bool IsBurned()
+        {
+            return burned;
+        }
+
+        public override void SetBurning()
+        {
+            this.burned = true;
+        }
     }
 }
